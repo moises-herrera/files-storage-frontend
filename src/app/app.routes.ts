@@ -7,6 +7,11 @@ export const routes: Routes = [
       import('./auth/auth.routes').then((routes) => routes.authRoutes),
   },
   {
+    path: 'storage',
+    loadChildren: () =>
+      import('./storage/storage.routes').then((routes) => routes.storageRoutes),
+  },
+  {
     path: '**',
     redirectTo: 'auth',
   },

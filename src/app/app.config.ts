@@ -5,6 +5,9 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { provideErrorTailorConfig } from '@ngneat/error-tailor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,10 +21,25 @@ export const appConfig: ApplicationConfig = {
             name: 'primeng',
             order: 'theme, base, primeng',
           },
-          darkModeSelector: '.app-dark'
+          darkModeSelector: '.app-dark',
         },
       },
     }),
+    provideErrorTailorConfig({
+      errors: {
+        useValue: {
+          required: 'Este campo es requerido',
+          minlength: ({ requiredLength }) =>
+            `El campo debe tener mínimo ${requiredLength} carácteres`,
+          min: ({ min }) => `El valor debe ser mayor a ${min}`,
+          pattern: 'El valor ingresado es inválido',
+          passwordsMatch: 'Las contraseñas no coinciden',
+        },
+      },
+    }),
+    provideHttpClient(),
     provideRouter(routes),
+    MessageService,
+    ConfirmationService,
   ],
 };

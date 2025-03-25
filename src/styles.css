@@ -9,11 +9,11 @@ body {
 }
 
 .auth-section {
-  @apply min-h-screen w-full bg-surface-50 p-5 sm:p-10;
+  @apply min-h-screen w-full flex flex-col bg-surface-50 gap-y-8 p-5 sm:p-10;
 }
 
 .auth-container {
-  @apply w-full h-[calc(100vh-112px)] flex flex-1 justify-center items-center;
+  @apply w-full h-full flex flex-1 justify-center items-center;
 }
 
 .auth-card {
@@ -30,4 +30,16 @@ body {
 
 .auth-form .form-control {
   @apply w-full flex flex-col gap-2;
+}
+
+.control-error {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 14px;
+  color: #dc3545;
+}
+
+.p-password,
+.p-password input {
+  width: 100% !important;
 }
