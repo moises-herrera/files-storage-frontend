@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-auth',
@@ -8,4 +9,6 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./auth.component.css'],
   standalone: true,
 })
-export class AuthComponent {}
+export class AuthComponent {
+  appName = environment.appName;
+}

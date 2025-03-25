@@ -44,3 +44,7 @@ body {
 .p-password input {
   width: 100% !important;
 }
+
+.link {
+  @apply text-primary font-medium;
+}

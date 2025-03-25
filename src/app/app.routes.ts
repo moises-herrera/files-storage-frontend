@@ -29,6 +29,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'settings',
+        loadChildren: () =>
+          import('./features/settings/settings.routes').then(
+            (routes) => routes.settingsRoutes
+          ),
+      },
+      {
         path: '**',
         redirectTo: 'home',
       },

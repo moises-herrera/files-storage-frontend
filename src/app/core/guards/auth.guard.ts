@@ -9,7 +9,11 @@ export const authGuard = (): Observable<boolean> => {
 
   return userService.refreshToken().pipe(
     tap((isAuth) => {
-      return !isAuth ? router.navigateByUrl('/auth/login') : true;
+      return !isAuth
+        ? router.navigateByUrl('/auth/login', {
+            replaceUrl: true,
+          })
+        : true;
     })
   );
 };

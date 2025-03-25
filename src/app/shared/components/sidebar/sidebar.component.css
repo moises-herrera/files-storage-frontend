@@ -2,7 +2,7 @@
 @import "tailwindcss-primeui";
 
 .sidebar {
-  @apply w-[300px] h-full min-h-screen border border-gray-200 p-5;
+  @apply bg-white w-[300px] h-full border-r border-surface-200 p-5;
 }
 
 .sidebar-item {
@@ -14,9 +14,9 @@
 }
 
 .sidebar .sidebar-item-active {
-  @apply bg-primary-100;
+  @apply bg-primary;
 }
 
 .sidebar-item-active {
-  @apply font-bold text-primary;
+  @apply font-semibold text-primary-50;
 }

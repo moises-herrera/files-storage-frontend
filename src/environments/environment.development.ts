@@ -1,4 +1,4 @@
 export const environment = {
-  appName: 'SecureStorage',
+  appName: 'CloudNest',
   baseApiUrl: 'http://localhost:3000/api',
 };

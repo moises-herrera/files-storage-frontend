@@ -1,4 +1,8 @@
-<section class="min-h-screen w-full flex bg-surface-50">
-  <app-sidebar />
-  <router-outlet />
+<section class="min-h-screen w-full flex flex-col bg-surface-50">
+  <app-top-nav />
+
+  <div class="h-full flex flex-1">
+    <app-sidebar />
+    <router-outlet />
+  </div>
 </section>

@@ -68,7 +68,7 @@ export class LoginComponent {
           severity: 'success',
           summary: 'Sesión iniciada exitosamente',
         });
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/home', { replaceUrl: true });
       },
       error: (error: unknown) => {
         this.isLoading = false;
