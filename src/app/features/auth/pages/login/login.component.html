@@ -18,7 +18,13 @@
         />
       </div>
 
-      <button pButton type="submit" class="w-full mt-2">
+      <button
+        pButton
+        type="submit"
+        class="w-full mt-2"
+        [disabled]="loginForm.invalid || isLoading"
+        [loading]="isLoading"
+      >
         <span pButtonLabel>Iniciar sesión</span>
       </button>
 

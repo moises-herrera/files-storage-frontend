@@ -5,8 +5,8 @@ import { DividerModule } from 'primeng/divider';
 import { Router, RouterModule } from '@angular/router';
 import { errorTailorImports } from '@ngneat/error-tailor';
 import { TypedFormControls } from 'src/app/shared/models/typed-form-controls';
-import { LoginUser } from 'src/app/auth/models/login-user';
-import { UserService } from '../../../core/services/user.service';
+import { LoginUser } from 'src/app/features/auth/models/login-user';
+import { UserService } from 'src/app/core/services/user.service';
 import {
   FormControl,
   FormGroup,
@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormValidator } from '../../helpers/form-validator';
+import { FormValidator } from 'src/app/features/auth/helpers/form-validator';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -57,9 +57,13 @@ export class LoginComponent {
     }),
   });
 
+  isLoading = false;
+
   loginUser(): void {
+    this.isLoading = true;
     this.userService.loginUser(this.loginForm.value as LoginUser).subscribe({
       next: () => {
+        this.isLoading = false;
         this.alertService.displayMessage({
           severity: 'success',
           summary: 'Sesión iniciada exitosamente',
@@ -67,6 +71,7 @@ export class LoginComponent {
         this.router.navigateByUrl('/home');
       },
       error: (error: unknown) => {
+        this.isLoading = false;
         const status = error instanceof HttpErrorResponse ? error.status : 0;
 
         this.alertService.displayMessage({

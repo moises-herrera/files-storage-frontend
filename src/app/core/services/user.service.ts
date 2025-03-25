@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { RegisterUser } from 'src/app/auth/models/register-user';
-import { LoginUserResponse } from 'src/app/auth/models/login-user-response';
+import { RegisterUser } from 'src/app/features/auth/models/register-user';
+import { LoginUserResponse } from 'src/app/features/auth/models/login-user-response';
 import { environment } from 'src/environments/environment';
 import { catchError, map, Observable, of, tap } from 'rxjs';
-import { LoginUser } from 'src/app/auth/models/login-user';
+import { LoginUser } from 'src/app/features/auth/models/login-user';
 import { User } from 'src/app/core/models/user';
 
 const baseUrl = environment.baseApiUrl;
