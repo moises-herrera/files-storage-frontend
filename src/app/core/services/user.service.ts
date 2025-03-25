@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { RegisterUser } from 'src/app/features/auth/models/register-user';
 import { LoginUserResponse } from 'src/app/features/auth/models/login-user-response';
 import { environment } from 'src/environments/environment';
@@ -13,9 +13,11 @@ const baseUrl = environment.baseApiUrl;
   providedIn: 'root',
 })
 export class UserService {
+  private readonly http = inject(HttpClient);
+
   user = signal<User>({} as User);
 
-  constructor(private readonly http: HttpClient) {
+  constructor() {
     const user = localStorage.getItem('user');
 
     if (user) {
