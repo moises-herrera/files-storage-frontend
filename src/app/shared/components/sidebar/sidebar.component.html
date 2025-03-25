@@ -1,10 +1,5 @@
 <aside class="sidebar">
-  <p-button
-    icon="pi pi-plus"
-    label="Agregar"
-    rounded
-    type="button"
-  />
+  <p-button icon="pi pi-plus" label="Agregar" outlined type="button" />
 
   <nav class="mt-4">
     <ul>
@@ -16,6 +11,13 @@
         </a>
       </li>
       }
+
+      <li class="sidebar-item cursor-pointer">
+        <a (click)="logout()">
+          <span class="pi pi-sign-out"></span>
+          <span>Cerrar sesión</span>
+        </a>
+      </li>
     </ul>
   </nav>
 </aside>
