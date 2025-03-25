@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+.sidebar {
+  @apply w-[300px] h-full min-h-screen border border-gray-200 p-5;
+}
+
+.sidebar-item {
+  @apply my-1 text-center;
+}
+
+.sidebar-item a {
+  @apply flex items-center space-x-3 rounded-lg p-3;
+}
+
+.sidebar .sidebar-item-active {
+  @apply bg-primary-100;
+}
+
+.sidebar-item-active {
+  @apply font-bold text-primary;
+}

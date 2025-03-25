@@ -101,7 +101,7 @@ export class RegisterComponent {
           severity: 'success',
           summary: 'Registro exitoso',
         });
-        this.router.navigateByUrl('/storage');
+        this.router.navigateByUrl('/home');
       },
       error: () => {
         this.isLoading = false;

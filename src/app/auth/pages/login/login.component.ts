@@ -64,7 +64,7 @@ export class LoginComponent {
           severity: 'success',
           summary: 'Sesión iniciada exitosamente',
         });
-        this.router.navigateByUrl('/storage');
+        this.router.navigateByUrl('/home');
       },
       error: (error: unknown) => {
         const status = error instanceof HttpErrorResponse ? error.status : 0;

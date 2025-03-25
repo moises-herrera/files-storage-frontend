@@ -8,11 +8,11 @@ export const routes: Routes = [
       import('./auth/auth.routes').then((routes) => routes.authRoutes),
   },
   {
-    path: 'storage',
+    path: '',
     canActivate: [authGuard],
     canMatch: [authGuard],
     loadChildren: () =>
-      import('./storage/storage.routes').then((routes) => routes.storageRoutes),
+      import('./modules/modules.routes').then((routes) => routes.modulesRoutes),
   },
   {
     path: '**',

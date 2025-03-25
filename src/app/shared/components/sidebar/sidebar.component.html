@@ -1,0 +1,21 @@
+<aside class="sidebar">
+  <p-button
+    icon="pi pi-plus"
+    label="Agregar"
+    rounded
+    type="button"
+  />
+
+  <nav class="mt-4">
+    <ul>
+      @for (item of links; track item.url) {
+      <li class="sidebar-item">
+        <a [routerLink]="item.url" routerLinkActive="sidebar-item-active">
+          <i [ngClass]="item.icon || ''"></i>
+          <span>{{ item.title }}</span>
+        </a>
+      </li>
+      }
+    </ul>
+  </nav>
+</aside>
