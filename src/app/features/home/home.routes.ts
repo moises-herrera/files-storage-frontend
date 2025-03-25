@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 export const homeRoutes: Routes = [
   {
     path: '',
-    title: `${environment.appName} - Home`,
+    title: `${environment.appName} - Inicio`,
     component: HomeComponent,
   },
 ];

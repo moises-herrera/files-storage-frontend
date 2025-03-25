@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 export const storageRoutes: Routes = [
   {
     path: '',
-    title: `${environment.appName} - Almacenamiento`,
+    title: `${environment.appName} - Archivos`,
     component: StorageComponent,
   },
 ];
