@@ -10,6 +10,8 @@ import { FolderItem } from 'src/app/core/models/folder-item';
 import { CommonModule } from '@angular/common';
 import { switchMap } from 'rxjs';
 import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
+import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-storage',
@@ -29,6 +31,8 @@ export class StorageComponent implements OnInit {
   private readonly alertService = inject(AlertService);
 
   private readonly route = inject(ActivatedRoute);
+
+  private readonly title = inject(Title);
 
   folderId = '';
 
@@ -84,6 +88,8 @@ export class StorageComponent implements OnInit {
                 routerLink: `/storage/${this.folderId}`,
               },
             ]);
+
+            this.title.setTitle(`${environment.appName} - ${data.folder.name}`);
           }
 
           this.folderContent.set(data);
