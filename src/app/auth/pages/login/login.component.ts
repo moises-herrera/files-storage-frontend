@@ -6,7 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 import { errorTailorImports } from '@ngneat/error-tailor';
 import { TypedFormControls } from 'src/app/shared/models/typed-form-controls';
 import { LoginUser } from 'src/app/auth/models/login-user';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../core/services/user.service';
 import {
   FormControl,
   FormGroup,
@@ -16,7 +16,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormValidator } from '../../helpers/form-validator';
-import { AlertService } from 'src/app/shared/services/alert.service';
+import { AlertService } from 'src/app/core/services/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 type LoginTypedForm = TypedFormControls<LoginUser>;
