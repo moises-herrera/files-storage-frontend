@@ -26,7 +26,7 @@ export class SidebarComponent {
       icon: 'pi pi-home',
     },
     {
-      title: 'Archivos',
+      title: 'Mis archivos',
       url: '/storage',
       icon: 'pi pi-folder',
     },
