@@ -4,6 +4,6 @@ export interface Folder {
   readonly id: string;
   readonly name: string;
   readonly owner: string;
-  readonly parentFolder?: Folder | null;
+  readonly parentFolder?: string | null;
   readonly permissions?: FolderItemPermission[];
 }

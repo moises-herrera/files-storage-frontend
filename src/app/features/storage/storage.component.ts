@@ -64,33 +64,30 @@ export class StorageComponent implements OnInit {
       .subscribe({
         next: (data) => {
           if (this.folderId) {
-            const parentFolders: MenuItem[] = [];
-            let parentFolder = data.folder.parentFolder;
-
-            while (parentFolder) {
-              console.log(parentFolder);
-              parentFolders.unshift({
-                label: parentFolder?.name,
-                routerLink: `/storage/${parentFolder?.id}`,
+            const foldersHierarchy: MenuItem[] = [...data.folders]
+              .reverse()
+              .slice(1)
+              .map(({ id, name }) => {
+                return {
+                  label: name,
+                  routerLink: `/storage/${id}`,
+                };
               });
-
-              parentFolder = parentFolder.parentFolder;
-            }
 
             this.breadCrumbItems.set([
               {
                 label: 'Mis archivos',
                 routerLink: '/storage',
               },
-              ...parentFolders.slice(1),
-              {
-                label: data.folder.name,
-                routerLink: `/storage/${this.folderId}`,
-              },
+              ...foldersHierarchy,
             ]);
 
-            this.title.setTitle(`${environment.appName} - ${data.folder.name}`);
+            this.title.setTitle(
+              `${environment.appName} - ${data.folders[0].name}`
+            );
           }
+
+          console.log(data);
 
           this.folderContent.set(data);
         },

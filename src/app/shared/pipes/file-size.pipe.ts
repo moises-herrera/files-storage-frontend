@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FileSizePipe implements PipeTransform {
   transform(value: number): string {
-    if (isNaN(Number(value))) {
+    if (!value || isNaN(Number(value))) {
       return '';
     }
 
