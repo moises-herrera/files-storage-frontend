@@ -1,5 +1,41 @@
-<section class="h-full w-full flex flex-col">
-  <p-breadcrumb class="max-w-full" [model]="breadCrumbItems()">
+<section class="h-full w-full flex flex-col p-4">
+  <div>
+    <h1 class="text-2xl font-bold mb-4">Almacenamiento</h1>
+
+    <div class="flex items-center justify-between mb-4">
+      <input
+        #searchInput
+        pInputText
+        placeholder="Buscar"
+        class="w-full max-w-[400px] mr-4"
+        type="text"
+        [value]="searchTerm()"
+        (keyup)="searchTerm.set(searchInput.value)"
+      />
+
+      <p-button
+        icon="pi pi-plus"
+        label="Agregar"
+        outlined
+        styleClass="bg-white"
+        type="button"
+        (onClick)="fileInput.click()"
+      />
+
+      <input
+        #fileInput
+        class="hidden"
+        type="file"
+        [multiple]="false"
+        (change)="uploadFile($event.target)"
+      />
+    </div>
+  </div>
+
+  <p-breadcrumb
+    class="max-w-full border-b border-surface-200"
+    [model]="breadCrumbItems()"
+  >
     <ng-template #item let-item>
       <a class="cursor-pointer" [routerLink]="item.routerLink">
         <span class="text-lg">{{ item.label }}</span>
