@@ -8,29 +8,32 @@
     <ng-template #separator> / </ng-template>
   </p-breadcrumb>
 
-  <p-table [value]="folderItems()" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-contextmenu
+    #contextMenu
+    [model]="settingsMenuItems"
+    (onHide)="selectedItem = null"
+  />
+  <p-table
+    [value]="folderItems()"
+    [(contextMenuSelection)]="selectedItem"
+    [contextMenu]="contextMenu"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
     <ng-template #header let-columns>
       <tr>
-        <th class="w-[50%]">Nombre</th>
-        <th>Última modificación</th>
-        <th>Tamaño del archivo</th>
+        <th class="max-w-[50%]">Nombre</th>
+        <th class="w-[300px]">Última modificación</th>
+        <th class="w-[300px]">Tamaño del archivo</th>
       </tr>
     </ng-template>
     <ng-template #body let-item>
-      <tr>
+      <tr
+        class="hover:bg-blue-50"
+        [pContextMenuRow]="item"
+        (dblclick)="item.type === 'folder' && goToFolder(item.id)"
+      >
         <td>
-          @if (item.type === 'folder') {
-          <a
-            class="text-blue-500 hover:underline"
-            [routerLink]="['/storage', item.id]"
-          >
-            {{ item.name }}
-          </a>
-          } @else {
-          <a class="text-blue-500 hover:underline">
-            {{ item.name }}
-          </a>
-          }
+          {{ item.name }}
         </td>
         <td>
           {{ item.updatedAt | date : "dd/MM/yyyy HH:mm:ss" }}
@@ -40,3 +43,5 @@
     </ng-template>
   </p-table>
 </section>
+
+<p-confirmdialog styleClass="confirm-dialog" />

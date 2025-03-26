@@ -1,7 +1,12 @@
-<aside class="sidebar">
+<aside class="sidebar space-y-6">
+  <div class="flex items-center gap-x-2">
+    <span class="pi pi-cloud text-3xl"></span>
+    <h2 class="text-2xl font-bold text-primary">{{ appName }}</h2>
+  </div>
+
   <p-button icon="pi pi-plus" label="Agregar" outlined type="button" />
 
-  <nav class="mt-4">
+  <nav>
     <ul>
       @for (item of links; track item.url) {
       <li class="sidebar-item">

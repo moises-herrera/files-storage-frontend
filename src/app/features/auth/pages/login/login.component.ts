@@ -64,10 +64,6 @@ export class LoginComponent {
     this.userService.loginUser(this.loginForm.value as LoginUser).subscribe({
       next: () => {
         this.isLoading = false;
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Sesión iniciada exitosamente',
-        });
         this.router.navigateByUrl('/home', { replaceUrl: true });
       },
       error: (error: unknown) => {

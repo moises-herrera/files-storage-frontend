@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +14,8 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
+  appName = environment.appName;
+
   private readonly userService = inject(UserService);
 
   private readonly router = inject(Router);

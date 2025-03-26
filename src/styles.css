@@ -48,3 +48,7 @@ body {
 .link {
   @apply text-primary font-medium;
 }
+
+.confirm-dialog {
+  @apply w-1/4 min-w-[380px];
+}

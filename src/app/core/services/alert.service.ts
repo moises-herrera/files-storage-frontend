@@ -4,6 +4,7 @@ import {
   MessageService,
   ToastMessageOptions,
 } from 'primeng/api';
+import { ConfirmOptions } from 'src/app/shared/models/confirm-options';
 
 /**
  * Alert service.
@@ -30,16 +31,21 @@ export class AlertService {
   /**
    * Display confirmation dialog.
    *
-   * @param acceptAction Function called when the accept event is triggered.
-   * @param rejectAction Function called when the reject event is triggered.
+   * @param options Confirmation dialog options.
    */
-  displayConfirm(acceptAction: () => void, rejectAction?: () => void): void {
+  displayConfirm(options: ConfirmOptions): void {
     this.confirmationService.confirm({
-      message: '¿Estás seguro?',
-      header: 'Confirmación',
-      icon: 'pi pi-exclamation-triangle',
-      accept: acceptAction,
-      reject: rejectAction,
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-info-circle',
+      ...options,
     });
+  }
+
+  /**
+   * Clear all messages.
+   */
+  clearMessages(): void {
+    this.messageService.clear();
   }
 }
