@@ -20,10 +20,7 @@ import { CommonModule } from '@angular/common';
 import {
   combineLatest,
   debounce,
-  debounceTime,
   distinctUntilChanged,
-  map,
-  of,
   startWith,
   Subject,
   switchMap,
@@ -40,6 +37,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { StorageTableComponent } from './components/storage-table/storage-table.component';
 import { FolderItemDialogComponent } from './components/folder-item-dialog/folder-item-dialog.component';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
   selector: 'app-storage',
@@ -55,6 +54,8 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
     FolderItemDialogComponent,
     FormsModule,
     ReactiveFormsModule,
+    IconFieldModule,
+    InputIconModule,
   ],
   templateUrl: './storage.component.html',
   styleUrl: './storage.component.css',
