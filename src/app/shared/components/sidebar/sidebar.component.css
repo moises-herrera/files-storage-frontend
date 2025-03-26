@@ -2,7 +2,7 @@
 @import "tailwindcss-primeui";
 
 .sidebar {
-  @apply bg-white w-[300px] h-full border-r border-surface-200 p-5;
+  @apply bg-surface-50 w-[300px] h-full border-r border-surface-200 p-5;
 }
 
 .sidebar-item {
