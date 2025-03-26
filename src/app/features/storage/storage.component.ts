@@ -1,8 +1,10 @@
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   inject,
+  OnDestroy,
   OnInit,
   signal,
   ViewChild,
@@ -15,7 +17,19 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MenuItem } from 'primeng/api';
 import { FolderItem } from 'src/app/core/models/folder-item';
 import { CommonModule } from '@angular/common';
-import { switchMap } from 'rxjs';
+import {
+  combineLatest,
+  debounce,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  of,
+  startWith,
+  Subject,
+  switchMap,
+  takeUntil,
+  timer,
+} from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { ButtonModule } from 'primeng/button';
@@ -25,6 +39,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { StorageTableComponent } from './components/storage-table/storage-table.component';
 import { FolderItemDialogComponent } from './components/folder-item-dialog/folder-item-dialog.component';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-storage',
@@ -38,11 +53,15 @@ import { FolderItemDialogComponent } from './components/folder-item-dialog/folde
     InputTextModule,
     StorageTableComponent,
     FolderItemDialogComponent,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './storage.component.html',
   styleUrl: './storage.component.css',
 })
-export class StorageComponent implements OnInit {
+export class StorageComponent implements OnInit, OnDestroy {
+  private readonly destroy$ = new Subject<void>();
+
   private readonly folderService = inject(FolderService);
   private readonly fileService = inject(FileService);
   private readonly alertService = inject(AlertService);
@@ -86,18 +105,36 @@ export class StorageComponent implements OnInit {
     },
   ];
 
-  searchTerm = signal<string>('');
+  searchTermControl = new FormControl<string | null>(null);
+
+  page = signal<number>(1);
+
+  pageSize = signal<number>(10);
 
   ngOnInit(): void {
     this.getFolderContent();
   }
 
   getFolderContent(): void {
-    this.route.params
+    combineLatest({
+      params: this.route.params,
+      search: this.searchTermControl.valueChanges.pipe(
+        startWith(null),
+        debounce((value) => (value === null ? timer(0) : timer(300))),
+        distinctUntilChanged()
+      ),
+    })
       .pipe(
-        switchMap((params) => {
+        takeUntil(this.destroy$),
+        switchMap(({ params, search }) => {
           this.folderId = params['id'];
-          return this.folderService.getFolderContent(this.folderId);
+
+          return this.folderService.getFolderContent({
+            folderId: this.folderId,
+            search: search || '',
+            page: this.page(),
+            pageSize: this.pageSize(),
+          });
         })
       )
       .subscribe({
@@ -171,5 +208,11 @@ export class StorageComponent implements OnInit {
     if (reloadTable) {
       this.getFolderContent();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.searchTermControl.reset();
   }
 }

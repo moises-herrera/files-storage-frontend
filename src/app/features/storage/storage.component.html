@@ -9,8 +9,7 @@
         placeholder="Buscar"
         class="w-full max-w-[400px] mr-4"
         type="text"
-        [value]="searchTerm()"
-        (keyup)="searchTerm.set(searchInput.value)"
+        [formControl]="searchTermControl"
       />
 
       <div>

@@ -2,8 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FolderContent } from 'src/app/core/models/folder-content';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 import { Folder } from '../models/folder';
+import { GetFolderContent } from '../models/get-folder-content';
 
 const baseUrl = environment.baseApiUrl;
 
@@ -13,12 +14,28 @@ const baseUrl = environment.baseApiUrl;
 export class FolderService {
   private readonly http = inject(HttpClient);
 
-  getFolderContent(folderId?: string): Observable<FolderContent> {
-    const params = new HttpParams().set('folderId', folderId || '');
+  getFolderContent({
+    folderId,
+    search,
+    page,
+    pageSize,
+  }: GetFolderContent): Observable<FolderContent> {
+    const params = new HttpParams()
+      .set('folderId', folderId || '')
+      .set('search', search || '')
+      .set('page', page || '1')
+      .set('pageSize', pageSize || '10');
 
-    return this.http.get<FolderContent>(`${baseUrl}/folders`, {
-      params,
-    });
+    return this.http
+      .get<FolderContent>(`${baseUrl}/folders`, {
+        params,
+      })
+      .pipe(
+        shareReplay({
+          bufferSize: 1,
+          refCount: true,
+        })
+      );
   }
 
   addFolder(name: string, parentFolderId?: string): Observable<Folder> {
