@@ -1,4 +1,12 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FolderContent } from 'src/app/core/models/folder-content';
 import { AlertService } from 'src/app/core/services/alert.service';
@@ -39,6 +47,8 @@ export class StorageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly title = inject(Title);
 
+  @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement> | null = null;
+
   folderId = '';
 
   folderContent = signal<FolderContent>({} as FolderContent);
@@ -53,6 +63,21 @@ export class StorageComponent implements OnInit {
       routerLink: '/storage',
     },
   ]);
+
+  addFolderItemsMenu: MenuItem[] = [
+    {
+      label: 'Subir archivo',
+      icon: 'pi pi-upload',
+      command: () => {
+        if (!this.fileInput) return;
+        this.fileInput.nativeElement.click();
+      },
+    },
+    {
+      label: 'Crear carpeta',
+      icon: 'pi pi-folder-plus',
+    },
+  ];
 
   searchTerm = signal<string>('');
 

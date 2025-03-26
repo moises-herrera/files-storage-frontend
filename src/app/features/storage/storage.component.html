@@ -13,22 +13,26 @@
         (keyup)="searchTerm.set(searchInput.value)"
       />
 
-      <p-button
-        icon="pi pi-plus"
-        label="Agregar"
-        outlined
-        styleClass="bg-white"
-        type="button"
-        (onClick)="fileInput.click()"
-      />
+      <div>
+        <p-button
+          icon="pi pi-plus"
+          label="Agregar"
+          outlined
+          styleClass="bg-white"
+          type="button"
+          (onClick)="menu.toggle($event)"
+        />
 
-      <input
-        #fileInput
-        class="hidden"
-        type="file"
-        [multiple]="false"
-        (change)="uploadFile($event.target)"
-      />
+        <p-menu #menu [model]="addFolderItemsMenu" popup />
+
+        <input
+          #fileInput
+          class="hidden"
+          type="file"
+          [multiple]="false"
+          (change)="uploadFile($event.target)"
+        />
+      </div>
     </div>
   </div>
 
