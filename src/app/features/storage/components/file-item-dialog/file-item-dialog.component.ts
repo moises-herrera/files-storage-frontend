@@ -35,10 +35,10 @@ export class FileItemDialogComponent {
 
   constructor() {
     effect(() => {
-      if (this.folderItemData()?.id) {
-        this.fileItemName.set(this.folderItemData()?.name || '');
-      } else {
-        this.fileItemName.set('');
+      if (this.isDialogVisible()) {
+        this.fileItemName.set(
+          this.folderItemData()?.id ? this.folderItemData()?.name ?? '' : ''
+        );
       }
     });
   }

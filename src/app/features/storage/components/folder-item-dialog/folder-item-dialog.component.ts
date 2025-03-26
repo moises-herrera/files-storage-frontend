@@ -48,12 +48,12 @@ export class FolderItemDialogComponent {
 
   constructor() {
     effect(() => {
-      if (this.folderItemData()?.id) {
+      if (this.isDialogVisible()) {
         this.folderItemName.set(
-          this.folderItemData()?.name || this.defaultFolderItemName
+          this.folderItemData()?.id
+            ? this.folderItemData()?.name ?? this.defaultFolderItemName
+            : this.defaultFolderItemName
         );
-      } else {
-        this.folderItemName.set(this.defaultFolderItemName);
       }
     });
   }
