@@ -122,6 +122,9 @@ export class StorageComponent implements OnInit {
             this.title.setTitle(
               `${environment.appName} - ${data.folders[0].name}`
             );
+          } else {
+            this.folderId =
+              data.folders.find(({ parentFolder }) => !parentFolder)?.id ?? '';
           }
 
           this.folderContent.set(data);
