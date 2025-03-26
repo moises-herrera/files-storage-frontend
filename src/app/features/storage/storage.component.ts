@@ -1,12 +1,4 @@
-import {
-  Component,
-  computed,
-  ElementRef,
-  inject,
-  OnInit,
-  signal,
-  ViewChild,
-} from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FolderContent } from 'src/app/core/models/folder-content';
 import { AlertService } from 'src/app/core/services/alert.service';
@@ -88,22 +80,7 @@ export class StorageComponent implements OnInit {
 
         if (!selectedItem) return;
 
-        this.alertService.displayConfirm({
-          header: 'Eliminar archivo',
-          message: `¿Está seguro de que desea eliminar ${selectedItem.name}?`,
-          accept: () => {
-            this.deleteFiles([selectedItem.id || '']);
-          },
-          acceptButtonProps: {
-            label: 'Eliminar',
-            severity: 'danger',
-          },
-          rejectButtonProps: {
-            label: 'Cancelar',
-            severity: 'secondary',
-            outlined: true,
-          },
-        });
+        this.handleItemDelete(selectedItem as FolderItem);
       },
     },
   ];
@@ -240,6 +217,46 @@ export class StorageComponent implements OnInit {
     });
   }
 
+  handleItemDelete(selectedItem: FolderItem): void {
+    if (selectedItem.type === 'file') {
+      this.alertService.displayConfirm({
+        header: 'Eliminar archivo',
+        message: `¿Está seguro de que desea eliminar ${selectedItem.name}?`,
+        accept: () => {
+          this.deleteFiles([selectedItem.id || '']);
+        },
+        acceptButtonProps: {
+          label: 'Eliminar',
+          severity: 'danger',
+        },
+        rejectButtonProps: {
+          label: 'Cancelar',
+          severity: 'secondary',
+          outlined: true,
+        },
+      });
+
+      return;
+    }
+
+    this.alertService.displayConfirm({
+      header: 'Eliminar carpeta',
+      message: `¿Está seguro de que desea eliminar ${selectedItem.name}?`,
+      accept: () => {
+        this.deleteFolders([selectedItem.id || '']);
+      },
+      acceptButtonProps: {
+        label: 'Eliminar',
+        severity: 'danger',
+      },
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+    });
+  }
+
   deleteFiles(fileIds: string[]): void {
     this.fileService.deleteFiles(fileIds).subscribe({
       next: () => {
@@ -255,6 +272,26 @@ export class StorageComponent implements OnInit {
           severity: 'error',
           summary: 'Error',
           detail: 'Error al eliminar los archivos',
+        });
+      },
+    });
+  }
+
+  deleteFolders(folderIds: string[]): void {
+    this.folderService.deleteFolders(folderIds).subscribe({
+      next: () => {
+        this.alertService.displayMessage({
+          severity: 'success',
+          summary: 'Éxito',
+          detail: 'Carpetas eliminadas correctamente',
+        });
+        this.getFolderContent();
+      },
+      error: () => {
+        this.alertService.displayMessage({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al eliminar las carpetas',
         });
       },
     });

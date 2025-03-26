@@ -19,4 +19,10 @@ export class FolderService {
       params,
     });
   }
+
+  deleteFolders(folderIds: string[]): Observable<void> {
+    return this.http.delete<void>(`${baseUrl}/folders`, {
+      body: { folderIds },
+    });
+  }
 }
