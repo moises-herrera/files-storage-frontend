@@ -12,6 +12,7 @@ import { FileHelper } from 'src/app/shared/helpers/file-helper';
 import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
 import { FolderItemDialogComponent } from '../folder-item-dialog/folder-item-dialog.component';
 import { FileItemDialogComponent } from '../file-item-dialog/file-item-dialog.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-storage-table',
@@ -22,6 +23,7 @@ import { FileItemDialogComponent } from '../file-item-dialog/file-item-dialog.co
     FileSizePipe,
     FolderItemDialogComponent,
     FileItemDialogComponent,
+    ConfirmDialogModule,
   ],
   templateUrl: './storage-table.component.html',
   styleUrl: './storage-table.component.css',

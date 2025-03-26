@@ -1,42 +1,10 @@
 <section class="h-full w-full flex flex-col p-4">
-  <div>
-    <h1 class="text-2xl font-bold mb-4">Almacenamiento</h1>
-
-    <div class="flex items-center justify-between mb-4">
-      <p-iconfield class="w-full max-w-[400px] mr-4">
-        <p-inputicon styleClass="pi pi-search" />
-        <input
-          #searchInput
-          pInputText
-          placeholder="Buscar"
-          class="w-full"
-          type="text"
-          [formControl]="searchTermControl"
-        />
-      </p-iconfield>
-
-      <div>
-        <p-button
-          icon="pi pi-plus"
-          label="Agregar"
-          outlined
-          styleClass="bg-white"
-          type="button"
-          (onClick)="menu.toggle($event)"
-        />
-
-        <p-menu #menu [model]="addFolderItemsMenu" popup />
-
-        <input
-          #fileInput
-          class="hidden"
-          type="file"
-          [multiple]="false"
-          (change)="uploadFile($event.target)"
-        />
-      </div>
-    </div>
-  </div>
+  <app-header
+    [folderId]="folderId"
+    [searchTerm]="searchTermControl.value ?? ''"
+    (searchTermChange)="searchTermControl.setValue($event)"
+    (updateTable)="getFolderContent()"
+  />
 
   <p-breadcrumb
     class="max-w-full border-b border-surface-200"
@@ -56,11 +24,3 @@
     (updateTable)="getFolderContent()"
   />
 </section>
-
-<app-folder-item-dialog
-  [isDialogVisible]="isAddFolderDialogVisible()"
-  [parentFolderId]="folderId"
-  (closeDialog)="closeAddFolderDialog($event)"
-/>
-
-<p-confirmdialog styleClass="confirm-dialog" />

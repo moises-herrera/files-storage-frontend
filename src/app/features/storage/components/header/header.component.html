@@ -1,0 +1,45 @@
+<div>
+  <h1 class="text-2xl font-bold mb-4">Almacenamiento</h1>
+
+  <div class="flex items-center justify-between mb-4">
+    <p-iconfield class="w-full max-w-[400px] mr-4">
+      <p-inputicon styleClass="pi pi-search" />
+      <input
+        #searchInput
+        pInputText
+        placeholder="Buscar"
+        class="w-full"
+        type="text"
+        [value]="searchTerm()"
+        (keyup)="searchTermChange.emit(searchInput.value)"
+      />
+    </p-iconfield>
+
+    <div>
+      <p-button
+        icon="pi pi-plus"
+        label="Agregar"
+        outlined
+        styleClass="bg-white"
+        type="button"
+        (onClick)="menu.toggle($event)"
+      />
+
+      <p-menu #menu [model]="addFolderItemsMenu" popup />
+
+      <input
+        #fileInput
+        class="hidden"
+        type="file"
+        [multiple]="false"
+        (change)="uploadFile($event.target)"
+      />
+    </div>
+  </div>
+</div>
+
+<app-folder-item-dialog
+  [isDialogVisible]="isAddFolderDialogVisible()"
+  [parentFolderId]="folderId()"
+  (closeDialog)="closeAddFolderDialog($event)"
+/>
