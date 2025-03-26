@@ -5,31 +5,31 @@
   styleClass="w-full max-w-[400px]"
 >
   <ng-template #header>
-    <h2 class="font-semibold text-xl text-primary">Nueva carpeta</h2>
+    <h2 class="font-semibold text-xl text-primary">Renombrar archivo</h2>
   </ng-template>
 
   <div class="flex flex-col gap-2">
-    <label for="folderName">Nombre</label>
+    <label for="fileName">Nombre</label>
     <input
-      #folderNameInput
-      id="folderName"
+      #fileNameInput
+      id="fileName"
       type="text"
       pInputText
       class="w-full max-w-[400px]"
       autocomplete="off"
-      [value]="folderName()"
-      (keyup)="folderName.set(folderNameInput.value)"
-      (keydown.enter)="createFolder()"
+      [value]="fileItemName()"
+      (keyup)="fileItemName.set(fileNameInput.value)"
+      (keydown.enter)="saveFile()"
     />
   </div>
 
   <ng-template #footer>
     <p-button label="Cancelar" (click)="emitCloseEvent()" text />
     <p-button
-      label="Crear"
+      label="Renombrar"
       text
-      (click)="createFolder()"
-      [disabled]="!folderName().trim()"
+      (click)="saveFile()"
+      [disabled]="!fileItemName().trim()"
     />
   </ng-template>
 </p-dialog>

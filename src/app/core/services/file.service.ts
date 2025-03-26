@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileData } from 'src/app/core/models/file-data';
 import { environment } from 'src/environments/environment';
+import { File as FileModel } from '../models/file';
 
 const baseUrl = `${environment.baseApiUrl}`;
 
@@ -22,6 +23,12 @@ export class FileService {
 
   getFileUrl(fileId: string): Observable<FileData> {
     return this.http.get<FileData>(`${baseUrl}/files/${fileId}`);
+  }
+
+  updateFile(fileId: string, name: string): Observable<FileModel> {
+    return this.http.patch<FileModel>(`${baseUrl}/files/${fileId}`, {
+      name,
+    });
   }
 
   deleteFiles(fileIds: string[]): Observable<void> {

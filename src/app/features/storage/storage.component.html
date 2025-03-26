@@ -49,14 +49,15 @@
   </p-breadcrumb>
 
   <app-storage-table
+    [folderId]="folderId"
     [folderItems]="folderItems()"
     (updateTable)="getFolderContent()"
   />
 </section>
 
-<app-add-folder-dialog
-  [currentFolderId]="folderId"
+<app-folder-item-dialog
   [isDialogVisible]="isAddFolderDialogVisible()"
+  [parentFolderId]="folderId"
   (closeDialog)="closeAddFolderDialog($event)"
 />
 

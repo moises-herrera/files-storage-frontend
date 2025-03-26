@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -8,11 +8,21 @@ import { FolderItem } from 'src/app/core/models/folder-item';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { FileService } from 'src/app/core/services/file.service';
 import { FolderService } from 'src/app/core/services/folder.service';
+import { FileHelper } from 'src/app/shared/helpers/file-helper';
 import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
+import { FolderItemDialogComponent } from '../folder-item-dialog/folder-item-dialog.component';
+import { FileItemDialogComponent } from '../file-item-dialog/file-item-dialog.component';
 
 @Component({
   selector: 'app-storage-table',
-  imports: [CommonModule, TableModule, ContextMenuModule, FileSizePipe],
+  imports: [
+    CommonModule,
+    TableModule,
+    ContextMenuModule,
+    FileSizePipe,
+    FolderItemDialogComponent,
+    FileItemDialogComponent,
+  ],
   templateUrl: './storage-table.component.html',
   styleUrl: './storage-table.component.css',
 })
@@ -21,6 +31,8 @@ export class StorageTableComponent {
   private readonly fileService = inject(FileService);
   private readonly alertService = inject(AlertService);
   private readonly router = inject(Router);
+
+  folderId = input<string>('');
 
   folderItems = input<FolderItem[]>([]);
 
@@ -40,6 +52,13 @@ export class StorageTableComponent {
     {
       label: 'Renombrar',
       icon: 'pi pi-pencil',
+      command: () => {
+        if (this.selectedItem?.type === 'folder') {
+          this.isFolderDialogVisible.set(true);
+        } else {
+          this.isFileDialogVisible.set(true);
+        }
+      },
     },
     {
       label: 'Eliminar',
@@ -53,6 +72,10 @@ export class StorageTableComponent {
       },
     },
   ];
+
+  isFolderDialogVisible = signal<boolean>(false);
+
+  isFileDialogVisible = signal<boolean>(false);
 
   goToFolder(folderId: string): void {
     this.router.navigateByUrl(`/storage/${folderId}`);
@@ -69,14 +92,7 @@ export class StorageTableComponent {
     this.fileService.getFileUrl(file.id).subscribe({
       next: async ({ url }) => {
         try {
-          const fileFetched = await fetch(url);
-
-          if (!fileFetched.ok) {
-            throw new Error('Error al descargar el archivo');
-          }
-
-          const blob = await fileFetched.blob();
-          const blobUrl = URL.createObjectURL(blob);
+          const blobUrl = await FileHelper.getBlobFileFromUrl(url);
           const link = document.createElement('a');
           link.style.display = 'none';
           link.href = blobUrl;
@@ -108,31 +124,15 @@ export class StorageTableComponent {
   }
 
   handleItemDelete(selectedItem: FolderItem): void {
-    if (selectedItem.type === 'file') {
-      this.alertService.displayConfirm({
-        header: 'Eliminar archivo',
-        message: `¿Está seguro de que desea eliminar ${selectedItem.name}?`,
-        accept: () => {
-          this.deleteFiles([selectedItem.id || '']);
-        },
-        acceptButtonProps: {
-          label: 'Eliminar',
-          severity: 'danger',
-        },
-        rejectButtonProps: {
-          label: 'Cancelar',
-          severity: 'secondary',
-          outlined: true,
-        },
-      });
-
-      return;
-    }
-
     this.alertService.displayConfirm({
-      header: 'Eliminar carpeta',
+      header:
+        selectedItem.type === 'file' ? 'Eliminar archivo' : 'Eliminar carpeta',
       message: `¿Está seguro de que desea eliminar ${selectedItem.name}?`,
       accept: () => {
+        if (selectedItem.type === 'file') {
+          this.deleteFiles([selectedItem.id || '']);
+          return;
+        }
         this.deleteFolders([selectedItem.id || '']);
       },
       acceptButtonProps: {
@@ -185,5 +185,15 @@ export class StorageTableComponent {
         });
       },
     });
+  }
+
+  closeDialog(reloadTable = false): void {
+    this.isFolderDialogVisible.set(false);
+    this.isFileDialogVisible.set(false);
+    this.selectedItem = null;
+
+    if (reloadTable) {
+      this.updateTable.emit();
+    }
   }
 }

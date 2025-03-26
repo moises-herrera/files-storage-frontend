@@ -24,7 +24,7 @@ import { FileService } from 'src/app/core/services/file.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { StorageTableComponent } from './components/storage-table/storage-table.component';
-import { AddFolderDialogComponent } from './components/add-folder-dialog/add-folder-dialog.component';
+import { FolderItemDialogComponent } from './components/folder-item-dialog/folder-item-dialog.component';
 
 @Component({
   selector: 'app-storage',
@@ -37,7 +37,7 @@ import { AddFolderDialogComponent } from './components/add-folder-dialog/add-fol
     ConfirmDialogModule,
     InputTextModule,
     StorageTableComponent,
-    AddFolderDialogComponent,
+    FolderItemDialogComponent,
   ],
   templateUrl: './storage.component.html',
   styleUrl: './storage.component.css',

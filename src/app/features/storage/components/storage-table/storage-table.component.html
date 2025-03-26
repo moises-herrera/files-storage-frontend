@@ -1,8 +1,4 @@
-<p-contextmenu
-  #contextMenu
-  [model]="settingsMenuItems"
-  (onHide)="selectedItem = null"
-/>
+<p-contextmenu #contextMenu [model]="settingsMenuItems" />
 <p-table
   [value]="folderItems()"
   [(contextMenuSelection)]="selectedItem"
@@ -32,3 +28,16 @@
     </tr>
   </ng-template>
 </p-table>
+
+<app-folder-item-dialog
+  [isDialogVisible]="isFolderDialogVisible()"
+  [parentFolderId]="folderId()"
+  [folderItemData]="selectedItem"
+  (closeDialog)="closeDialog($event)"
+/>
+
+<app-file-item-dialog
+  [isDialogVisible]="isFileDialogVisible()"
+  [folderItemData]="selectedItem"
+  (closeDialog)="closeDialog($event)"
+/>

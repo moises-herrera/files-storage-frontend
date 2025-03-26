@@ -1,0 +1,35 @@
+<p-dialog
+  [visible]="isDialogVisible()"
+  (visibleChange)="emitCloseEvent()"
+  modal
+  styleClass="w-full max-w-[400px]"
+>
+  <ng-template #header>
+    <h2 class="font-semibold text-xl text-primary">{{ dialogTitle() }}</h2>
+  </ng-template>
+
+  <div class="flex flex-col gap-2">
+    <label for="folderName">Nombre</label>
+    <input
+      #folderNameInput
+      id="folderName"
+      type="text"
+      pInputText
+      class="w-full max-w-[400px]"
+      autocomplete="off"
+      [value]="folderItemName()"
+      (keyup)="folderItemName.set(folderNameInput.value)"
+      (keydown.enter)="saveFolder()"
+    />
+  </div>
+
+  <ng-template #footer>
+    <p-button label="Cancelar" (click)="emitCloseEvent()" text />
+    <p-button
+      [label]="dialogButtonLabel()"
+      text
+      (click)="saveFolder()"
+      [disabled]="!folderItemName().trim()"
+    />
+  </ng-template>
+</p-dialog>
