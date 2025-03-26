@@ -52,6 +52,8 @@ export class FolderItemDialogComponent {
         this.folderItemName.set(
           this.folderItemData()?.name || this.defaultFolderItemName
         );
+      } else {
+        this.folderItemName.set(this.defaultFolderItemName);
       }
     });
   }
@@ -99,6 +101,5 @@ export class FolderItemDialogComponent {
 
   emitCloseEvent(reload = false): void {
     this.closeDialog.emit(reload);
-    this.folderItemName.set(this.defaultFolderItemName);
   }
 }

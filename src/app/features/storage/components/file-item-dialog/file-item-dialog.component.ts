@@ -23,13 +23,11 @@ export class FileItemDialogComponent {
   private readonly fileService = inject(FileService);
   private readonly alertService = inject(AlertService);
 
-  defaultFileItemName = 'Archivo sin título';
-
   parentFolderId = input<string>('');
 
   folderItemData = input<FolderItem | null>(null);
 
-  fileItemName = signal<string>(this.defaultFileItemName);
+  fileItemName = signal<string>('');
 
   isDialogVisible = input<boolean>(false);
 
@@ -38,9 +36,9 @@ export class FileItemDialogComponent {
   constructor() {
     effect(() => {
       if (this.folderItemData()?.id) {
-        this.fileItemName.set(
-          this.folderItemData()?.name || this.defaultFileItemName
-        );
+        this.fileItemName.set(this.folderItemData()?.name || '');
+      } else {
+        this.fileItemName.set('');
       }
     });
   }
@@ -70,6 +68,5 @@ export class FileItemDialogComponent {
 
   emitCloseEvent(reload = false): void {
     this.closeDialog.emit(reload);
-    this.fileItemName.set(this.defaultFileItemName);
   }
 }
