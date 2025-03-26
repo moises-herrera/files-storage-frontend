@@ -5,19 +5,25 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class FileSizePipe implements PipeTransform {
+  readonly KB = 1024;
+  readonly MB = this.KB * 1024;
+  readonly GB = this.MB * 1024;
+
   transform(value: number): string {
-    if (!value || isNaN(Number(value))) {
-      return '';
+    if (!value) return '';
+
+    if (value < this.KB) {
+      return `${value} B`;
     }
 
-    if (value < 1024) {
-      return `${value} B`;
-    } else if (value < 1048576) {
-      return `${(value / 1024).toFixed(2)} KB`;
-    } else if (value < 1073741824) {
-      return `${(value / 1048576).toFixed(2)} MB`;
-    } else {
-      return `${(value / 1073741824).toFixed(2)} GB`;
+    if (value < this.MB) {
+      return `${(value / this.KB).toFixed(2)} KB`;
     }
+
+    if (value < this.GB) {
+      return `${(value / this.MB).toFixed(2)} MB`;
+    }
+
+    return `${(value / this.GB).toFixed(2)} GB`;
   }
 }
