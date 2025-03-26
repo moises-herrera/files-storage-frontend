@@ -24,6 +24,7 @@ import { FileService } from 'src/app/core/services/file.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { StorageTableComponent } from './components/storage-table/storage-table.component';
+import { AddFolderDialogComponent } from './components/add-folder-dialog/add-folder-dialog.component';
 
 @Component({
   selector: 'app-storage',
@@ -36,6 +37,7 @@ import { StorageTableComponent } from './components/storage-table/storage-table.
     ConfirmDialogModule,
     InputTextModule,
     StorageTableComponent,
+    AddFolderDialogComponent,
   ],
   templateUrl: './storage.component.html',
   styleUrl: './storage.component.css',
@@ -64,6 +66,8 @@ export class StorageComponent implements OnInit {
     },
   ]);
 
+  isAddFolderDialogVisible = signal<boolean>(false);
+
   addFolderItemsMenu: MenuItem[] = [
     {
       label: 'Subir archivo',
@@ -76,6 +80,9 @@ export class StorageComponent implements OnInit {
     {
       label: 'Crear carpeta',
       icon: 'pi pi-folder-plus',
+      command: () => {
+        this.isAddFolderDialogVisible.set(true);
+      },
     },
   ];
 
@@ -154,5 +161,12 @@ export class StorageComponent implements OnInit {
         });
       },
     });
+  }
+
+  closeAddFolderDialog(reloadTable = false): void {
+    this.isAddFolderDialogVisible.set(false);
+    if (reloadTable) {
+      this.getFolderContent();
+    }
   }
 }

@@ -20,6 +20,13 @@ export class FolderService {
     });
   }
 
+  addFolder(name: string, parentFolderId?: string): Observable<void> {
+    return this.http.post<void>(`${baseUrl}/folders`, {
+      name,
+      parentFolderId,
+    });
+  }
+
   deleteFolders(folderIds: string[]): Observable<void> {
     return this.http.delete<void>(`${baseUrl}/folders`, {
       body: { folderIds },

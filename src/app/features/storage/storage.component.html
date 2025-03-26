@@ -54,4 +54,10 @@
   />
 </section>
 
+<app-add-folder-dialog
+  [currentFolderId]="folderId"
+  [isDialogVisible]="isAddFolderDialogVisible()"
+  (closeDialog)="closeAddFolderDialog($event)"
+/>
+
 <p-confirmdialog styleClass="confirm-dialog" />
