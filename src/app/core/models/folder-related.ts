@@ -1,6 +1,6 @@
 import { FolderItemPermission } from './folder-permission';
 
-export interface Folder {
+export interface FolderRelated {
   readonly id: string;
   readonly name: string;
   readonly owner: string;
