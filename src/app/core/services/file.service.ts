@@ -12,6 +12,14 @@ const baseUrl = `${environment.baseApiUrl}`;
 export class FileService {
   private readonly http = inject(HttpClient);
 
+  uploadFile(file: File, folderId: string): Observable<FileData> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('folderId', folderId);
+
+    return this.http.post<FileData>(`${baseUrl}/files`, formData);
+  }
+
   getFileUrl(fileId: string): Observable<FileData> {
     return this.http.get<FileData>(`${baseUrl}/files/${fileId}`);
   }

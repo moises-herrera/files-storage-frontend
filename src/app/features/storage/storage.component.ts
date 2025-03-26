@@ -1,4 +1,12 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FolderContent } from 'src/app/core/models/folder-content';
 import { AlertService } from 'src/app/core/services/alert.service';
@@ -17,6 +25,7 @@ import { MenuModule } from 'primeng/menu';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { FileService } from 'src/app/core/services/file.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-storage',
@@ -30,6 +39,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MenuModule,
     ContextMenuModule,
     ConfirmDialogModule,
+    InputTextModule,
   ],
   templateUrl: './storage.component.html',
   styleUrl: './storage.component.css',
@@ -100,6 +110,8 @@ export class StorageComponent implements OnInit {
 
   selectedItem: FolderItem | null = null;
 
+  searchTerm = signal<string>('');
+
   ngOnInit(): void {
     this.getFolderContent();
   }
@@ -150,6 +162,33 @@ export class StorageComponent implements OnInit {
 
   goToFolder(folderId: string): void {
     this.router.navigateByUrl(`/storage/${folderId}`);
+  }
+
+  uploadFile(eventTarget: EventTarget | null): void {
+    if (!eventTarget) return;
+
+    const input = eventTarget as HTMLInputElement;
+    const files = input.files;
+
+    if (!files || files.length === 0) return;
+
+    this.fileService.uploadFile(files[0], this.folderId).subscribe({
+      next: () => {
+        this.alertService.displayMessage({
+          severity: 'success',
+          summary: 'Éxito',
+          detail: 'Archivo subido correctamente',
+        });
+        this.getFolderContent();
+      },
+      error: () => {
+        this.alertService.displayMessage({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al subir el archivo',
+        });
+      },
+    });
   }
 
   downloadFile(file: FolderItem): void {
