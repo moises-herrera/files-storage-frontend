@@ -25,16 +25,25 @@ export class FilesDropZoneComponent {
   filesUploaded = signal<FileList | null>(null);
 
   uploadFiles(files: FileList): void {
-    this.fileService.uploadFile(files[0], this.folderId()).subscribe({
+    this.alertService.displayMessage({
+      severity: 'info',
+      summary: 'Subiendo archivos',
+      detail: 'Por favor, espere...',
+      sticky: true,
+    });
+
+    this.fileService.uploadFile(files, this.folderId()).subscribe({
       next: () => {
         this.alertService.displayMessage({
           severity: 'success',
           summary: 'Éxito',
           detail: 'Los archivos se han subido correctamente',
         });
+        this.alertService.clearMessages();
         this.onUploadComplete.emit();
       },
       error: () => {
+        this.alertService.clearMessages();
         this.alertService.displayMessage({
           severity: 'error',
           summary: 'Error',

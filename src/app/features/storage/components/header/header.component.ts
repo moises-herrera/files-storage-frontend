@@ -77,7 +77,7 @@ export class HeaderComponent {
 
     if (!files || files.length === 0) return;
 
-    this.fileService.uploadFile(files[0], this.folderId()).subscribe({
+    this.fileService.uploadFile(files, this.folderId()).subscribe({
       next: () => {
         this.alertService.displayMessage({
           severity: 'success',
