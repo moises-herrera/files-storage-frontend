@@ -1,1 +1,11 @@
-<p>Home</p>
+<section class="section-container">
+  <h1 class="section-title truncate">
+    Bienvenido,
+    <span title="{{ user().firstName }} {{ user().lastName }}"
+      >{{ user().firstName }} {{ user().lastName }}</span
+    >
+  </h1>
+
+  <app-folders-grid />
+  <app-files-table />
+</section>

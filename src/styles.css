@@ -58,5 +58,5 @@ body {
 }
 
 .section-title {
-  @apply text-2xl font-bold mb-4 text-primary;
+  @apply text-2xl font-semibold mb-4 text-primary;
 }

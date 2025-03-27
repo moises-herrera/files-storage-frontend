@@ -1,0 +1,14 @@
+<section class="flex flex-col gap-4">
+  <h2 class="text-lg font-medium">Carpetas recientes</h2>
+
+  <div class="flex items-center flex-wrap gap-4">
+    @for (folder of folders; track folder.id) {
+    <div
+      class="h-[56px] w-[250px] flex items-center gap-x-2 bg-surface-100 border border-surface-200 rounded-lg px-4"
+    >
+      <p><span class="pi pi-folder"></span></p>
+      <p>{{ folder.name }}</p>
+    </div>
+    }
+  </div>
+</section>
