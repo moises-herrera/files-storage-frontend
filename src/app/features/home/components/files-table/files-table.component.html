@@ -43,4 +43,10 @@
   </p-table>
 </section>
 
+<app-file-item-dialog
+  [isDialogVisible]="isFileDialogVisible()"
+  [folderItemData]="selectedItem"
+  (closeDialog)="closeDialog($event)"
+/>
+
 <p-confirmdialog styleClass="confirm-dialog" />

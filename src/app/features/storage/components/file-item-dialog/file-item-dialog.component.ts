@@ -9,6 +9,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { FileInfo } from 'src/app/core/models/file-info';
 import { FolderItem } from 'src/app/core/models/folder-item';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { FileService } from 'src/app/core/services/file.service';
@@ -25,7 +26,7 @@ export class FileItemDialogComponent {
 
   parentFolderId = input<string>('');
 
-  folderItemData = input<FolderItem | null>(null);
+  folderItemData = input<FolderItem | FileInfo | null>(null);
 
   fileItemName = signal<string>('');
 

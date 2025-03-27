@@ -10,6 +10,7 @@ import { catchError, Observable, of } from 'rxjs';
 import { FileInfo } from 'src/app/core/models/file-info';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { FileService } from 'src/app/core/services/file.service';
+import { FileItemDialogComponent } from 'src/app/features/storage/components/file-item-dialog/file-item-dialog.component';
 import { FileHelper } from 'src/app/shared/helpers/file-helper';
 import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
 
@@ -23,6 +24,7 @@ import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
     FileSizePipe,
     TooltipModule,
     ConfirmDialogModule,
+    FileItemDialogComponent,
   ],
   templateUrl: './files-table.component.html',
   styleUrl: './files-table.component.css',
@@ -151,5 +153,12 @@ export class FilesTableComponent implements OnInit {
         this.alertService.displayError('Error al eliminar los archivos');
       },
     });
+  }
+
+  closeDialog(reloadTable = false): void {
+    this.isFileDialogVisible.set(false);
+    if (reloadTable) {
+      this.getRecentFiles();
+    }
   }
 }
