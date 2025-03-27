@@ -31,7 +31,8 @@
         #fileInput
         class="hidden"
         type="file"
-        [multiple]="false"
+        multiple
+        [accept]="ALLOWED_FILE_TYPES"
         (change)="uploadFile($event.target)"
       />
     </div>
