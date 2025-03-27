@@ -3,6 +3,7 @@ import { Component, inject, input, output, signal } from '@angular/core';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { FileService } from 'src/app/core/services/file.service';
 import { FileDraggingDetectorDirective } from 'src/app/shared/directives/file-dragging-detector.directive';
+import { FileHelper } from 'src/app/shared/helpers/file-helper';
 
 @Component({
   selector: 'app-files-drop-zone',
@@ -25,6 +26,34 @@ export class FilesDropZoneComponent {
   filesUploaded = signal<FileList | null>(null);
 
   uploadFiles(files: FileList): void {
+    const fileArray = Array.from(files);
+
+    const hasBigFile = fileArray.some(
+      (file) => file.size > FileHelper.MAX_FILE_SIZE
+    );
+
+    if (hasBigFile) {
+      this.alertService.displayMessage({
+        severity: 'error',
+        summary: 'Error',
+        detail: `El tamaño máximo para archivos es ${FileHelper.MAX_FILE_SIZE_MB} MB`,
+      });
+      return;
+    }
+
+    const hasInvalidFileType = fileArray.some(
+      (file) => FileHelper.ALLOWED_FILE_TYPES.indexOf(file.type) === -1
+    );
+
+    if (hasInvalidFileType) {
+      this.alertService.displayMessage({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Tipo de archivo no permitido',
+      });
+      return;
+    }
+
     this.alertService.displayMessage({
       severity: 'info',
       summary: 'Subiendo archivos',

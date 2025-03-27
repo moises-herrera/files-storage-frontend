@@ -10,8 +10,8 @@ import { FileService } from 'src/app/core/services/file.service';
 import { FolderService } from 'src/app/core/services/folder.service';
 import { FileHelper } from 'src/app/shared/helpers/file-helper';
 import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
-import { FolderItemDialogComponent } from '../folder-item-dialog/folder-item-dialog.component';
-import { FileItemDialogComponent } from '../file-item-dialog/file-item-dialog.component';
+import { FolderItemDialogComponent } from 'src/app/features/storage/components/folder-item-dialog/folder-item-dialog.component';
+import { FileItemDialogComponent } from 'src/app/features/storage/components/file-item-dialog/file-item-dialog.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
