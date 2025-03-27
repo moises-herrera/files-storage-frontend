@@ -13,7 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { RegisterForm } from 'src/app/features/auth/models/register-form';
-import { FormValidator } from 'src/app/features/auth/helpers/form-validator';
+import { FormValidator } from 'src/app/shared/helpers/form-validator';
 import { TypedFormControls } from 'src/app/shared/models/typed-form-controls';
 import { UserService } from 'src/app/core/services/user.service';
 import { AlertService } from 'src/app/core/services/alert.service';

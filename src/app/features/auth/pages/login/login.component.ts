@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormValidator } from 'src/app/features/auth/helpers/form-validator';
+import { FormValidator } from 'src/app/shared/helpers/form-validator';
 import { AlertService } from 'src/app/core/services/alert.service';
 import { HttpErrorResponse } from '@angular/common/http';
 

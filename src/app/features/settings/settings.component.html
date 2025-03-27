@@ -1,1 +1,81 @@
-<p>settings works!</p>
+<section class="section-container">
+  <h1 class="section-title">Información personal</h1>
+
+  <form
+    [formGroup]="settingsForm"
+    (ngSubmit)="saveUserInfo()"
+    class="min-w-[400px] max-w-[40%] flex flex-col gap-5 mx-4"
+  >
+    <div class="form-control">
+      <label for="firstName">Nombre</label>
+      <input
+        pInputText
+        id="firstName"
+        type="text"
+        formControlName="firstName"
+      />
+    </div>
+
+    <div class="form-control">
+      <label for="lastName">Apellido</label>
+      <input pInputText id="lastName" type="text" formControlName="lastName" />
+    </div>
+
+    <div class="form-control">
+      <label for="email">Email</label>
+      <input pInputText id="email" type="email" formControlName="email" />
+    </div>
+
+    <div class="form-control">
+      <label for="password">Contraseña</label>
+      <p-password
+        #password
+        id="password"
+        autocomplete="off"
+        formControlName="password"
+        [strongRegex]="strongPasswordRegex"
+        [mediumRegex]="mediumPasswordRegex"
+        [toggleMask]="true"
+        [weakLabel]="'Débil'"
+        [mediumLabel]="'Medio'"
+        [strongLabel]="'Fuerte'"
+        [promptLabel]="'Ingresa una contraseña'"
+      >
+        <ng-template pTemplate="footer">
+          <p class="mt-2">Sugerencias</p>
+          <ul class="pl-2 ml-2 mt-0 leading-6 list-disc">
+            <li>Al menos una letra minúscula</li>
+            <li>Al menos una letra mayúscula</li>
+            <li>Al menos un número</li>
+            <li>Mínimo 8 carácteres</li>
+          </ul>
+        </ng-template>
+      </p-password>
+
+      @if (isPasswordInvalid) {
+      <span class="control-error">{{ passwordErrorMessage }}</span>
+      }
+    </div>
+
+    <div class="flex space-x-4">
+      <button
+        type="submit"
+        pButton
+        label="Guardar"
+        class="w-[200px]"
+        [loading]="isSaving()"
+        [disabled]="!canSave() || settingsForm.invalid || isSaving()"
+      ></button>
+
+      <button
+        type="button"
+        pButton
+        label="Cancelar"
+        class="w-[200px]"
+        outlined
+        [disabled]="isSaving()"
+        (click)="cancelChanges()"
+      ></button>
+    </div>
+  </form>
+</section>

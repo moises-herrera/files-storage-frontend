@@ -55,6 +55,14 @@ export class UserService {
       );
   }
 
+  updateUserProfile(user: Partial<RegisterUser>): Observable<User> {
+    return this.http.patch<User>(`${baseUrl}/users/profile`, user).pipe(
+      tap((user) => {
+        this.setUserData(user);
+      })
+    );
+  }
+
   refreshToken(): Observable<boolean> {
     return this.http
       .get<LoginUserResponse>(`${baseUrl}/users/refresh-token`)
