@@ -1,0 +1,17 @@
+<div
+  [class]="'relative flex flex-col ' + styleClass()"
+  [ngClass]="{
+    'border-dashed border-2 border-blue-300 rounded-lg': isDragging()
+  }"
+  appFileDraggingDetector
+  (isDragging)="isDragging.set($event)"
+  (filesUploaded)="uploadFiles($event)"
+>
+  <div
+    class="absolute z-50 h-full w-full bg-blue-200 opacity-20"
+    [ngClass]="{
+      'invisible': !isDragging(),
+    }"
+  ></div>
+  <ng-content></ng-content>
+</div>
