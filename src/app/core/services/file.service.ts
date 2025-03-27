@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileData } from 'src/app/core/models/file-data';
 import { environment } from 'src/environments/environment';
-import { File as FileModel } from '../models/file';
+import { File as FileModel } from 'src/app/core/models/file';
+import { FileInfo } from 'src/app/core/models/file-info';
 
 const baseUrl = `${environment.baseApiUrl}`;
 
@@ -21,6 +22,11 @@ export class FileService {
     }
 
     return this.http.post<FileModel[]>(`${baseUrl}/files`, formData);
+  }
+
+  getRecentFiles(page = 1, pageSize = 10): Observable<FileInfo[]> {
+    const params = new HttpParams().set('page', page).set('pageSize', pageSize);
+    return this.http.get<FileInfo[]>(`${baseUrl}/files/recent`, { params });
   }
 
   getFileUrl(fileId: string): Observable<FileData> {
