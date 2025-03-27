@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -21,6 +22,7 @@ import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
     ContextMenuModule,
     FileSizePipe,
     TooltipModule,
+    ConfirmDialogModule,
   ],
   templateUrl: './files-table.component.html',
   styleUrl: './files-table.component.css',
