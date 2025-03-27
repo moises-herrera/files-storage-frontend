@@ -3,8 +3,9 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FolderContent } from 'src/app/core/models/folder-content';
 import { Observable, shareReplay } from 'rxjs';
-import { Folder } from '../models/folder';
-import { GetFolderContent } from '../models/get-folder-content';
+import { Folder } from 'src/app/core/models/folder';
+import { GetFolderContent } from 'src/app/core/models/get-folder-content';
+import { FolderRelated } from 'src/app/core/models/folder-related';
 
 const baseUrl = environment.baseApiUrl;
 
@@ -17,17 +18,32 @@ export class FolderService {
   getFolderContent({
     folderId,
     search,
-    page,
-    pageSize,
+    page = 1,
+    pageSize = 10,
   }: GetFolderContent): Observable<FolderContent> {
     const params = new HttpParams()
       .set('folderId', folderId || '')
       .set('search', search || '')
-      .set('page', page || '1')
-      .set('pageSize', pageSize || '10');
+      .set('page', page)
+      .set('pageSize', pageSize);
 
     return this.http
-      .get<FolderContent>(`${baseUrl}/folders`, {
+      .get<FolderContent>(`${baseUrl}/folders/owner-content`, {
+        params,
+      })
+      .pipe(
+        shareReplay({
+          bufferSize: 1,
+          refCount: true,
+        })
+      );
+  }
+
+  getRecentFolders(page = 1, pageSize = 10): Observable<FolderRelated[]> {
+    const params = new HttpParams().set('page', page).set('pageSize', pageSize);
+
+    return this.http
+      .get<FolderRelated[]>(`${baseUrl}/folders/recent`, {
         params,
       })
       .pipe(
