@@ -29,6 +29,45 @@ export class AlertService {
   }
 
   /**
+   * Display success message.
+   *
+   * @param message Message data.
+   */
+  displaySuccess(message: string): void {
+    this.displayMessage({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: message,
+    });
+  }
+
+  /**
+   * Display error message.
+   *
+   * @param message Message data.
+   */
+  displayError(message: string): void {
+    this.displayMessage({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
+  }
+
+  /**
+   * Display info message.
+   *
+   * @param message Message data.
+   */
+  displayInfo(message: string): void {
+    this.displayMessage({
+      severity: 'info',
+      summary: 'Información',
+      detail: message,
+    });
+  }
+
+  /**
    * Display confirmation dialog.
    *
    * @param options Confirmation dialog options.
