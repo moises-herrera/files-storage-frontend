@@ -11,9 +11,9 @@
     <ng-template #header let-columns>
       <tr>
         <th class="max-w-[250px] sm:max-w-[350px]">Nombre</th>
+        <th class="w-[250px]">Propietario</th>
         <th class="w-[250px]">Última modificación</th>
         <th class="w-[250px]">Tamaño del archivo</th>
-        <th class="w-[250px]">Propietario</th>
         <th class="w-[250px]">Carpeta</th>
       </tr>
     </ng-template>
@@ -24,11 +24,11 @@
             {{ item.name }}
           </p>
         </td>
+        <td>{{ item.owner.email }}</td>
         <td>
           {{ item.updatedAt | date : "dd/MM/yyyy HH:mm:ss" }}
         </td>
         <td>{{ item.size | fileSize }}</td>
-        <td>{{ item.owner.email }}</td>
         <td>
           <p class="w-[250px] truncate">
             <a
