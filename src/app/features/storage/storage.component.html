@@ -18,9 +18,14 @@
     <ng-template #separator> / </ng-template>
   </p-breadcrumb>
 
-  <app-storage-table
+  <app-files-drop-zone
     [folderId]="folderId"
-    [folderItems]="folderItems()"
-    (updateTable)="getFolderContent()"
-  />
+    (onUploadComplete)="getFolderContent()"
+  >
+    <app-storage-table
+      [folderId]="folderId"
+      [folderItems]="folderItems()"
+      (updateTable)="getFolderContent()"
+    />
+  </app-files-drop-zone>
 </section>

@@ -29,6 +29,7 @@ import { StorageTableComponent } from './components/storage-table/storage-table.
 import { FormControl } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { FilesDropZoneComponent } from 'src/app/shared/components/files-drop-zone/files-drop-zone.component';
 
 @Component({
   selector: 'app-storage',
@@ -38,6 +39,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     BreadcrumbModule,
     StorageTableComponent,
     HeaderComponent,
+    FilesDropZoneComponent,
   ],
   templateUrl: './storage.component.html',
   styleUrl: './storage.component.css',
