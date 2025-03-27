@@ -97,18 +97,12 @@ export class RegisterComponent {
     this.userService.registerUser(data as RegisterForm).subscribe({
       next: () => {
         this.isLoading = false;
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Registro exitoso',
-        });
+        this.alertService.displaySuccess('Registro exitoso');
         this.router.navigateByUrl('/home', { replaceUrl: true });
       },
       error: () => {
         this.isLoading = false;
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error al crear la cuenta',
-        });
+        this.alertService.displayError('Error al crear la cuenta');
       },
     });
   }

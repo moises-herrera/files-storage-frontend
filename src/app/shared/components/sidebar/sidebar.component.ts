@@ -46,11 +46,7 @@ export class SidebarComponent {
         this.router.navigateByUrl('/auth/login', { replaceUrl: true });
       },
       error: () => {
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error al cerrar sesión',
-        });
+        this.alertService.displayError('Error al cerrar sesión');
       },
     });
   }

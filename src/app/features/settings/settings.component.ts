@@ -136,19 +136,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.userService.updateUserProfile(this.settingsForm.value).subscribe({
       next: () => {
         this.isSaving.set(false);
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Información guardada correctamente',
-        });
+        this.alertService.displaySuccess('Información guardada correctamente');
       },
       error: () => {
         this.isSaving.set(false);
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'No se pudieron guardar los cambios',
-        });
+        this.alertService.displayError('No se pudieron guardar los cambios');
       },
     });
   }

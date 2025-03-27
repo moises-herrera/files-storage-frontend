@@ -87,11 +87,9 @@ export class HeaderComponent {
     );
 
     if (hasBigFile) {
-      this.alertService.displayMessage({
-        severity: 'error',
-        summary: 'Error',
-        detail: `El tamaño máximo para archivos es ${FileHelper.MAX_FILE_SIZE_MB} MB`,
-      });
+      this.alertService.displayError(
+        `El tamaño máximo para archivos es ${FileHelper.MAX_FILE_SIZE_MB} MB`
+      );
       return;
     }
 
@@ -100,29 +98,17 @@ export class HeaderComponent {
     );
 
     if (hasInvalidFileType) {
-      this.alertService.displayMessage({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Tipo de archivo no permitido',
-      });
+      this.alertService.displayError('Tipo de archivo no permitido');
       return;
     }
 
     this.fileService.uploadFile(files, this.folderId()).subscribe({
       next: () => {
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Archivos subidos correctamente',
-        });
+        this.alertService.displaySuccess('Archivos subidos correctamente');
         this.updateTable.emit();
       },
       error: () => {
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error al subir los archivos',
-        });
+        this.alertService.displayError('Error al subir los archivos');
       },
     });
   }

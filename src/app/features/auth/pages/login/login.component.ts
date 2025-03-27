@@ -70,14 +70,11 @@ export class LoginComponent {
         this.isLoading = false;
         const status = error instanceof HttpErrorResponse ? error.status : 0;
 
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error al iniciar sesión',
-          detail:
-            status === 400
-              ? 'Usuario o contraseña incorrectos. Intente nuevamente.'
-              : 'Error de conexión. Intente nuevamente más tarde.',
-        });
+        this.alertService.displayError(
+          status === 400
+            ? 'Usuario o contraseña incorrectos. Intente nuevamente.'
+            : 'Error de conexión. Intente nuevamente más tarde.'
+        );
       },
     });
   }

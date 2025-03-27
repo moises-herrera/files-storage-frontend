@@ -65,19 +65,13 @@ export class FolderItemDialogComponent {
 
     observable$.subscribe({
       next: () => {
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Carpeta guardada',
-          detail: 'La carpeta se ha guardado correctamente',
-        });
+        this.alertService.displaySuccess(
+          'La carpeta se ha guardado correctamente'
+        );
         this.emitCloseEvent(true);
       },
       error: () => {
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'No se pudo guardar la carpeta',
-        });
+        this.alertService.displayError('No se pudo guardar la carpeta');
         this.emitCloseEvent();
       },
     });

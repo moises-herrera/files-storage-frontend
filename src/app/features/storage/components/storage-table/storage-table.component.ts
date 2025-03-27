@@ -107,20 +107,12 @@ export class StorageTableComponent {
           this.alertService.clearMessages();
         } catch {
           this.alertService.clearMessages();
-          this.alertService.displayMessage({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al descargar el archivo',
-          });
+          this.alertService.displayError('Error al descargar el archivo');
         }
       },
       error: () => {
         this.alertService.clearMessages();
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error al descargar el archivo',
-        });
+        this.alertService.displayError('Error al descargar el archivo');
       },
     });
   }
@@ -152,19 +144,11 @@ export class StorageTableComponent {
   deleteFiles(fileIds: string[]): void {
     this.fileService.deleteFiles(fileIds).subscribe({
       next: () => {
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Archivos eliminados correctamente',
-        });
+        this.alertService.displaySuccess('Archivos eliminados correctamente');
         this.updateTable.emit();
       },
       error: () => {
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error al eliminar los archivos',
-        });
+        this.alertService.displayError('Error al eliminar los archivos');
       },
     });
   }
@@ -172,19 +156,11 @@ export class StorageTableComponent {
   deleteFolders(folderIds: string[]): void {
     this.folderService.deleteFolders(folderIds).subscribe({
       next: () => {
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Carpetas eliminadas correctamente',
-        });
+        this.alertService.displaySuccess('Carpetas eliminadas correctamente');
         this.updateTable.emit();
       },
       error: () => {
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error al eliminar las carpetas',
-        });
+        this.alertService.displayError('Error al eliminar las carpetas');
       },
     });
   }

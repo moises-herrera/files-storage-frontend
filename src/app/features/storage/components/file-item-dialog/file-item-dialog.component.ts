@@ -48,19 +48,11 @@ export class FileItemDialogComponent {
       .updateFile(this.folderItemData()?.id || '', this.fileItemName())
       .subscribe({
         next: () => {
-          this.alertService.displayMessage({
-            severity: 'success',
-            summary: 'Éxito',
-            detail: 'Archivo renombrado correctamente',
-          });
+          this.alertService.displaySuccess('Archivo renombrado correctamente');
           this.emitCloseEvent(true);
         },
         error: () => {
-          this.alertService.displayMessage({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al renombrar el archivo',
-          });
+          this.alertService.displayError('Error al renombrar el archivo');
           this.emitCloseEvent();
         },
       });

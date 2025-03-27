@@ -131,11 +131,9 @@ export class StorageComponent implements OnInit, OnDestroy {
           this.folderContent.set(data);
         },
         error: () => {
-          this.alertService.displayMessage({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al cargar el contenido de la carpeta',
-          });
+          this.alertService.displayError(
+            'Error al cargar el contenido de la carpeta'
+          );
         },
       });
   }

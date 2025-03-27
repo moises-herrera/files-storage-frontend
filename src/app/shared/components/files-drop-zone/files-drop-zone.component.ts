@@ -33,11 +33,9 @@ export class FilesDropZoneComponent {
     );
 
     if (hasBigFile) {
-      this.alertService.displayMessage({
-        severity: 'error',
-        summary: 'Error',
-        detail: `El tamaño máximo para archivos es ${FileHelper.MAX_FILE_SIZE_MB} MB`,
-      });
+      this.alertService.displayError(
+        `El tamaño máximo para archivos es ${FileHelper.MAX_FILE_SIZE_MB} MB`
+      );
       return;
     }
 
@@ -46,11 +44,7 @@ export class FilesDropZoneComponent {
     );
 
     if (hasInvalidFileType) {
-      this.alertService.displayMessage({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Tipo de archivo no permitido',
-      });
+      this.alertService.displayError('Tipo de archivo no permitido');
       return;
     }
 
@@ -63,21 +57,15 @@ export class FilesDropZoneComponent {
 
     this.fileService.uploadFile(files, this.folderId()).subscribe({
       next: () => {
-        this.alertService.displayMessage({
-          severity: 'success',
-          summary: 'Éxito',
-          detail: 'Los archivos se han subido correctamente',
-        });
+        this.alertService.displaySuccess(
+          'Los archivos se han subido correctamente'
+        );
         this.alertService.clearMessages();
         this.onUploadComplete.emit();
       },
       error: () => {
         this.alertService.clearMessages();
-        this.alertService.displayMessage({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Error al subir los archivos',
-        });
+        this.alertService.displayError('Error al subir los archivos');
       },
     });
   }
