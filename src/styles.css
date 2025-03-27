@@ -29,7 +29,7 @@ body {
   @apply text-3xl font-bold text-primary mb-4;
 }
 
-.auth-form .form-control {
+.form-control {
   @apply w-full flex flex-col gap-2;
 }
 
@@ -51,4 +51,12 @@ body {
 
 .confirm-dialog {
   @apply w-1/4 min-w-[380px];
+}
+
+.section-container {
+  @apply h-full w-full flex flex-col p-4;
+}
+
+.section-title {
+  @apply text-2xl font-bold mb-4 text-primary;
 }
