@@ -13,6 +13,7 @@ import { FileService } from 'src/app/core/services/file.service';
 import { FileItemDialogComponent } from 'src/app/features/storage/components/file-item-dialog/file-item-dialog.component';
 import { FileHelper } from 'src/app/shared/helpers/file-helper';
 import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
+import { FileTypePipe } from 'src/app/shared/pipes/file-type.pipe';
 
 @Component({
   selector: 'app-files-table',
@@ -25,6 +26,7 @@ import { FileSizePipe } from 'src/app/shared/pipes/file-size.pipe';
     TooltipModule,
     ConfirmDialogModule,
     FileItemDialogComponent,
+    FileTypePipe,
   ],
   templateUrl: './files-table.component.html',
   styleUrl: './files-table.component.css',
