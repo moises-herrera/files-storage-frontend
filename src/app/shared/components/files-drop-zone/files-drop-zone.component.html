@@ -1,5 +1,5 @@
 <div
-  [class]="'relative flex flex-col ' + styleClass()"
+  [class]="'flex flex-col ' + styleClass()"
   [ngClass]="{
     'border-dashed border-2 border-blue-300 rounded-lg': isDragging()
   }"
@@ -8,7 +8,7 @@
   (filesUploaded)="uploadFiles($event)"
 >
   <div
-    class="absolute z-50 h-full w-full bg-blue-200 opacity-20"
+    class="absolute z-50 min-h-[calc(100vh-212px)] w-[calc(100%-320px)] bg-blue-200 opacity-20"
     [ngClass]="{
       'invisible': !isDragging(),
     }"
