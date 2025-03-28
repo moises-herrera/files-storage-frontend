@@ -15,6 +15,13 @@ const baseUrl = environment.baseApiUrl;
 export class FolderService {
   private readonly http = inject(HttpClient);
 
+  addFolder(name: string, parentFolderId?: string): Observable<Folder> {
+    return this.http.post<Folder>(`${baseUrl}/folders`, {
+      name,
+      parentFolderId,
+    });
+  }
+
   getFolderContent({
     folderId,
     search,
@@ -54,10 +61,9 @@ export class FolderService {
       );
   }
 
-  addFolder(name: string, parentFolderId?: string): Observable<Folder> {
-    return this.http.post<Folder>(`${baseUrl}/folders`, {
-      name,
-      parentFolderId,
+  downloadFolder(folderId: string): Observable<Blob> {
+    return this.http.get(`${baseUrl}/folders/${folderId}/download`, {
+      responseType: 'blob',
     });
   }
 

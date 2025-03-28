@@ -48,7 +48,12 @@ export class StorageTableComponent {
       icon: 'pi pi-download',
       command: () => {
         if (!this.selectedItem) return;
-        this.downloadFile(this.selectedItem);
+
+        if (this.selectedItem.type === 'file') {
+          this.downloadFile(this.selectedItem);
+        } else {
+          this.downloadFolder(this.selectedItem);
+        }
       },
     },
     {
@@ -113,6 +118,37 @@ export class StorageTableComponent {
       error: () => {
         this.alertService.clearMessages();
         this.alertService.displayError('Error al descargar el archivo');
+      },
+    });
+  }
+
+  downloadFolder(folder: FolderItem): void {
+    this.alertService.displayMessage({
+      severity: 'info',
+      summary: 'Descargando archivos...',
+      detail: `Descargando ${folder.name}`,
+      sticky: true,
+    });
+
+    this.folderService.downloadFolder(folder.id).subscribe({
+      next: (response) => {
+        this.alertService.clearMessages();
+
+        const blobUrl = window.URL.createObjectURL(response);
+        const link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = blobUrl;
+        link.download = folder.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+
+        this.alertService.displaySuccess('Carpeta descargada correctamente');
+      },
+      error: () => {
+        this.alertService.clearMessages();
+        this.alertService.displayError('Error al descargar la carpeta');
       },
     });
   }
