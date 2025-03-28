@@ -104,11 +104,16 @@ export class HeaderComponent {
 
     this.fileService.uploadFile(files, this.folderId()).subscribe({
       next: () => {
-        this.alertService.displaySuccess('Archivos subidos correctamente');
+        const message =
+          fileArray.length > 1
+            ? 'Los archivos se han subido'
+            : 'El archivo se ha subido';
+        this.alertService.displaySuccess(`${message} correctamente`);
         this.updateTable.emit();
       },
       error: () => {
-        this.alertService.displayError('Error al subir los archivos');
+        const message = files.length > 1 ? 'los archivos' : 'el archivo';
+        this.alertService.displayError(`Error al subir ${message}`);
       },
     });
   }

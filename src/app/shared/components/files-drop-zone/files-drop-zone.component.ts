@@ -50,22 +50,25 @@ export class FilesDropZoneComponent {
 
     this.alertService.displayMessage({
       severity: 'info',
-      summary: 'Subiendo archivos',
+      summary: `Subiendo archivo${fileArray.length > 1 ? 's' : ''}`,
       detail: 'Por favor, espere...',
       sticky: true,
     });
 
     this.fileService.uploadFile(files, this.folderId()).subscribe({
       next: () => {
-        this.alertService.displaySuccess(
-          'Los archivos se han subido correctamente'
-        );
+        const message =
+          fileArray.length > 1
+            ? 'Los archivos se han subido'
+            : 'El archivo se ha subido';
+        this.alertService.displaySuccess(`${message} correctamente`);
         this.alertService.clearMessages();
         this.onUploadComplete.emit();
       },
       error: () => {
+        const message = files.length > 1 ? 'los archivos' : 'el archivo';
         this.alertService.clearMessages();
-        this.alertService.displayError('Error al subir los archivos');
+        this.alertService.displayError(`Error al subir ${message}`);
       },
     });
   }

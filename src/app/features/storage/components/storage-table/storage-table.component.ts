@@ -144,11 +144,14 @@ export class StorageTableComponent {
   deleteFiles(fileIds: string[]): void {
     this.fileService.deleteFiles(fileIds).subscribe({
       next: () => {
-        this.alertService.displaySuccess('Archivos eliminados correctamente');
+        const message =
+          fileIds.length > 1 ? 'Archivos eliminados' : 'Archivo eliminado';
+        this.alertService.displaySuccess(`${message} correctamente`);
         this.updateTable.emit();
       },
       error: () => {
-        this.alertService.displayError('Error al eliminar los archivos');
+        const message = fileIds.length > 1 ? 'los archivos' : 'el archivo';
+        this.alertService.displayError(`Error al eliminar ${message}`);
       },
     });
   }
@@ -156,11 +159,14 @@ export class StorageTableComponent {
   deleteFolders(folderIds: string[]): void {
     this.folderService.deleteFolders(folderIds).subscribe({
       next: () => {
-        this.alertService.displaySuccess('Carpetas eliminadas correctamente');
+        const message =
+          folderIds.length > 1 ? 'Carpetas eliminadas' : 'Carpeta eliminada';
+        this.alertService.displaySuccess(`${message} correctamente`);
         this.updateTable.emit();
       },
       error: () => {
-        this.alertService.displayError('Error al eliminar las carpetas');
+        const message = folderIds.length > 1 ? 'las carpetas' : 'la carpeta';
+        this.alertService.displayError(`Error al eliminar ${message}`);
       },
     });
   }
