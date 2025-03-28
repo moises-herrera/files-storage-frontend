@@ -61,8 +61,8 @@ export class FilesDropZoneComponent {
           fileArray.length > 1
             ? 'Los archivos se han subido'
             : 'El archivo se ha subido';
-        this.alertService.displaySuccess(`${message} correctamente`);
         this.alertService.clearMessages();
+        this.alertService.displaySuccess(`${message} correctamente`);
         this.onUploadComplete.emit();
       },
       error: () => {
