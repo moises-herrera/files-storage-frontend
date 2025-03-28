@@ -8,8 +8,9 @@
   <ng-template #header let-columns>
     <tr>
       <th class="w-6/12">Nombre</th>
-      <th class="w-3/12">Última modificación</th>
-      <th class="w-3/12">Tamaño del archivo</th>
+      <th class="w-2/12">Última modificación</th>
+      <th class="w-2/12">Tipo</th>
+      <th class="w-2/12">Tamaño</th>
     </tr>
   </ng-template>
   <ng-template #body let-item>
@@ -27,13 +28,20 @@
               'pi-file': item.type !== 'folder'
             }"
           ></span>
-          <span class="w-[300px] lg:w-[calc(30vw)] truncate">
+          <span class="w-[300px] md:w-[25vw] lg:w-[40vw] truncate">
             {{ item.name }}
           </span>
         </p>
       </td>
       <td>
         {{ item.updatedAt | date : "dd/MM/yyyy HH:mm:ss" }}
+      </td>
+      <td>
+        @if (item.type === 'folder') {
+        <span>Carpeta</span>
+        } @else {
+        <span>{{ item.extension | fileType }}</span>
+        }
       </td>
       <td>{{ item.size | fileSize }}</td>
     </tr>
