@@ -1,6 +1,6 @@
 <section class="section-container">
   <app-header
-    [folderId]="folderId"
+    [folderId]="folderId()"
     [searchTerm]="searchTermControl.value ?? ''"
     (searchTermChange)="searchTermControl.setValue($event)"
     (updateTable)="getFolderContent()"
@@ -19,11 +19,12 @@
   </p-breadcrumb>
 
   <app-files-drop-zone
-    [folderId]="folderId"
+    [folderId]="folderId()"
+    [folderName]="currentFolder()?.name ?? ''"
     (onUploadComplete)="getFolderContent()"
   >
     <app-storage-table
-      [folderId]="folderId"
+      [folderId]="folderId()"
       [folderItems]="folderItems()"
       (updateTable)="getFolderContent()"
     />

@@ -8,10 +8,16 @@
   (filesUploaded)="uploadFiles($event)"
 >
   <div
-    class="absolute z-50 min-h-[calc(100vh-212px)] w-[calc(100%-320px)] bg-blue-200 opacity-20"
-    [ngClass]="{
-      'invisible': !isDragging(),
-    }"
-  ></div>
+    class="absolute z-50 min-h-[calc(100vh-212px)] w-[calc(100%-330px)] bg-blue-200/20"
+    [ngClass]="{ hidden: !isDragging() }"
+  >
+    <div class="absolute bottom-5 flex w-full justify-center">
+      <p
+        class="w-[75%] text-center text-blue-500 font-semibold text-lg truncate"
+      >
+        Subir archivos a {{ folderName() }}
+      </p>
+    </div>
+  </div>
   <ng-content></ng-content>
 </div>

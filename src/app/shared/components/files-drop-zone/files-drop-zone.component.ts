@@ -19,6 +19,8 @@ export class FilesDropZoneComponent {
 
   folderId = input<string>('');
 
+  folderName = input<string>('');
+
   onUploadComplete = output<void>();
 
   isDragging = signal<boolean>(false);
