@@ -123,6 +123,7 @@ export class StorageComponent implements OnInit, OnDestroy {
               .reverse()
               .slice(1)
               .map(({ id, name }) => ({
+                id,
                 label: name,
                 routerLink: `/storage/${id}`,
               }));
