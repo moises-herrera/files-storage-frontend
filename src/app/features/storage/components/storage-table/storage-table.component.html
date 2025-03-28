@@ -7,9 +7,9 @@
 >
   <ng-template #header let-columns>
     <tr>
-      <th class="max-w-[50%]">Nombre</th>
-      <th class="w-[300px]">Última modificación</th>
-      <th class="w-[300px]">Tamaño del archivo</th>
+      <th class="w-6/12">Nombre</th>
+      <th class="w-3/12">Última modificación</th>
+      <th class="w-3/12">Tamaño del archivo</th>
     </tr>
   </ng-template>
   <ng-template #body let-item>
@@ -19,7 +19,7 @@
       (dblclick)="item.type === 'folder' && goToFolder(item.id)"
     >
       <td>
-        <p class="flex items-center gap-2 w-[350px] truncate">
+        <p class="w-full flex items-center gap-2">
           <span
             class="pi"
             [ngClass]="{
@@ -27,7 +27,9 @@
               'pi-file': item.type !== 'folder'
             }"
           ></span>
-          <span>{{ item.name }}</span>
+          <span class="w-[300px] lg:w-[calc(30vw)] truncate">
+            {{ item.name }}
+          </span>
         </p>
       </td>
       <td>
