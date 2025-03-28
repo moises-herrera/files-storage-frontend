@@ -19,7 +19,16 @@
       (dblclick)="item.type === 'folder' && goToFolder(item.id)"
     >
       <td>
-        {{ item.name }}
+        <p class="flex items-center gap-2 w-[350px] truncate">
+          <span
+            class="pi"
+            [ngClass]="{
+              'pi-folder': item.type === 'folder',
+              'pi-file': item.type !== 'folder'
+            }"
+          ></span>
+          <span>{{ item.name }}</span>
+        </p>
       </td>
       <td>
         {{ item.updatedAt | date : "dd/MM/yyyy HH:mm:ss" }}

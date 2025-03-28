@@ -20,8 +20,9 @@
     <ng-template #body let-item>
       <tr class="hover:bg-zinc-50" [pContextMenuRow]="item">
         <td>
-          <p class="w-[250px] sm:w-[350px] truncate">
-            {{ item.name }}
+          <p class="flex items-center gap-2 w-[250px] sm:w-[350px] truncate">
+            <span class="pi pi-file"></span>
+            <span>{{ item.name }}</span>
           </p>
         </td>
         <td>{{ item.owner.email }}</td>
@@ -30,9 +31,10 @@
         </td>
         <td>{{ item.size | fileSize }}</td>
         <td>
-          <p class="w-[250px] truncate">
+          <p class="flex items-center gap-2 w-[250px] truncate">
+            <span class="pi pi-folder"></span>
             <a
-              class="text-blue-400 hover:underline"
+              class="text-primary-800 hover:underline"
               [routerLink]="['/storage', item.folder.id]"
               >{{ item.folder.name }}</a
             >
