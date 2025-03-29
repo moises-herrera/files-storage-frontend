@@ -1,4 +1,4 @@
 export const environment = {
   appName: 'CloudNest',
-  baseApiUrl: 'http://localhost:3000/api',
+  baseApiUrl: 'http://ec2-3-91-243-244.compute-1.amazonaws.com/api',
 };
