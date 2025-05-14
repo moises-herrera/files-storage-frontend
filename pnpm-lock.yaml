@@ -39,7 +39,7 @@ importers:
         specifier: ^4.0.15
         version: 4.0.15
       postcss:
-        specifier: ^8.5.3
+        specifier: 8.5.3
         version: 8.5.3
       primeicons:
         specifier: ^7.0.0
