@@ -1,4 +1,10 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
@@ -13,6 +19,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { provideErrorTailorConfig } from '@ngneat/error-tailor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { AppTheme } from './themes/app-theme';
+import { ConfigService } from './core/services/config.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -49,6 +56,10 @@ export const appConfig: ApplicationConfig = {
     },
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
+    provideAppInitializer(async () => {
+      const configService = inject(ConfigService);
+      await configService.loadConfig();
+    }),
     MessageService,
     ConfirmationService,
   ],

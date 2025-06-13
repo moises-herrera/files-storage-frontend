@@ -1,22 +1,24 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { FolderContent } from 'src/app/core/models/folder-content';
 import { Observable, shareReplay } from 'rxjs';
 import { Folder } from 'src/app/core/models/folder';
 import { GetFolderContent } from 'src/app/core/models/get-folder-content';
 import { FolderRelated } from 'src/app/core/models/folder-related';
-
-const baseUrl = environment.baseApiUrl;
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FolderService {
+  private readonly configService = inject(ConfigService);
+
+  private readonly baseUrl = this.configService.apiUrl;
+
   private readonly http = inject(HttpClient);
 
   addFolder(name: string, parentFolderId?: string): Observable<Folder> {
-    return this.http.post<Folder>(`${baseUrl}/folders`, {
+    return this.http.post<Folder>(`${this.baseUrl}/folders`, {
       name,
       parentFolderId,
     });
@@ -35,7 +37,7 @@ export class FolderService {
       .set('pageSize', pageSize);
 
     return this.http
-      .get<FolderContent>(`${baseUrl}/folders/owner-content`, {
+      .get<FolderContent>(`${this.baseUrl}/folders/owner-content`, {
         params,
       })
       .pipe(
@@ -50,7 +52,7 @@ export class FolderService {
     const params = new HttpParams().set('page', page).set('pageSize', pageSize);
 
     return this.http
-      .get<FolderRelated[]>(`${baseUrl}/folders/recent`, {
+      .get<FolderRelated[]>(`${this.baseUrl}/folders/recent`, {
         params,
       })
       .pipe(
@@ -62,19 +64,19 @@ export class FolderService {
   }
 
   downloadFolder(folderId: string): Observable<Blob> {
-    return this.http.get(`${baseUrl}/folders/${folderId}/download`, {
+    return this.http.get(`${this.baseUrl}/folders/${folderId}/download`, {
       responseType: 'blob',
     });
   }
 
   updateFolder(folderId: string, name: string): Observable<Folder> {
-    return this.http.patch<Folder>(`${baseUrl}/folders/${folderId}`, {
+    return this.http.patch<Folder>(`${this.baseUrl}/folders/${folderId}`, {
       name,
     });
   }
 
   deleteFolders(folderIds: string[]): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}/folders`, {
+    return this.http.delete<void>(`${this.baseUrl}/folders`, {
       body: { folderIds },
     });
   }

@@ -22,7 +22,10 @@ RUN pnpm build
 FROM nginx:1.28.0 AS prod
 EXPOSE 80
 COPY --from=build /app/dist/files-storage-frontend/browser /usr/share/nginx/html
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx.conf /etc/nginx/conf.d
 
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

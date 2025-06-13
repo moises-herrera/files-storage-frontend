@@ -2,17 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { RegisterUser } from 'src/app/features/auth/models/register-user';
 import { LoginUserResponse } from 'src/app/features/auth/models/login-user-response';
-import { environment } from 'src/environments/environment';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { LoginUser } from 'src/app/features/auth/models/login-user';
 import { User } from 'src/app/core/models/user';
-
-const baseUrl = environment.baseApiUrl;
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private readonly configService = inject(ConfigService);
+
+  private readonly baseUrl = this.configService.apiUrl;
+
   private readonly http = inject(HttpClient);
 
   user = signal<User>({} as User);
@@ -37,7 +39,7 @@ export class UserService {
 
   registerUser(user: RegisterUser): Observable<LoginUserResponse> {
     return this.http
-      .post<LoginUserResponse>(`${baseUrl}/users/register`, user)
+      .post<LoginUserResponse>(`${this.baseUrl}/users/register`, user)
       .pipe(
         tap(({ user }) => {
           this.setUserData(user);
@@ -47,7 +49,7 @@ export class UserService {
 
   loginUser(user: LoginUser): Observable<LoginUserResponse> {
     return this.http
-      .post<LoginUserResponse>(`${baseUrl}/users/login`, user)
+      .post<LoginUserResponse>(`${this.baseUrl}/users/login`, user)
       .pipe(
         tap(({ user }) => {
           this.setUserData(user);
@@ -56,7 +58,7 @@ export class UserService {
   }
 
   updateUserProfile(user: Partial<RegisterUser>): Observable<User> {
-    return this.http.patch<User>(`${baseUrl}/users/profile`, user).pipe(
+    return this.http.patch<User>(`${this.baseUrl}/users/profile`, user).pipe(
       tap((user) => {
         this.setUserData(user);
       })
@@ -65,7 +67,7 @@ export class UserService {
 
   refreshToken(): Observable<boolean> {
     return this.http
-      .get<LoginUserResponse>(`${baseUrl}/users/refresh-token`)
+      .get<LoginUserResponse>(`${this.baseUrl}/users/refresh-token`)
       .pipe(
         map(({ user }) => {
           this.setUserData(user);
@@ -80,7 +82,7 @@ export class UserService {
   }
 
   logout(): Observable<void> {
-    return this.http.get<void>(`${baseUrl}/users/logout`).pipe(
+    return this.http.get<void>(`${this.baseUrl}/users/logout`).pipe(
       tap(() => {
         this.clearUserData();
         this.user.set({} as User);
