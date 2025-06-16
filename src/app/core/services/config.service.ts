@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { EnvironmentConfig } from '../models/environment-config';
+import { EnvironmentConfig } from 'src/app/core/models/environment-config';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +15,6 @@ export class ConfigService {
     this.config = await firstValueFrom(
       this.http.get<EnvironmentConfig>('/assets/config.json')
     );
-
-    console.log(this.config);
   }
 
   get apiUrl(): string {
