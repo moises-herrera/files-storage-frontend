@@ -69,8 +69,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         Validators.pattern(FormValidator.emailPattern),
       ],
     }),
-    password: new FormControl<string>('', {
-      nonNullable: true,
+    password: new FormControl<string | null>(null, {
       validators: [
         Validators.minLength(8),
         Validators.pattern(FormValidator.mediumPasswordPattern),
@@ -95,7 +94,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         if (
-          this.settingsForm.controls.password.value.trim() &&
+          this.settingsForm.controls.password.value?.trim() &&
           this.settingsForm.controls.password.valid
         ) {
           this.canSave.set(true);
